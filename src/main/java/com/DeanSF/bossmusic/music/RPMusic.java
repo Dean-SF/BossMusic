@@ -20,9 +20,9 @@ public class RPMusic extends Music {
     @Override
     public void play(Player player) {
         try {
-            player.playSound(player.getLocation(), Sound.valueOf(getSound()), SoundCategory.VOICE, 10000.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.valueOf(getSound()), SoundCategory.RECORDS, 1.0f, 1.0f);
         } catch (Exception e) {
-            player.playSound(player.getLocation(), getSound(), SoundCategory.VOICE, 10000.0f, 1.0f);
+            player.playSound(player.getLocation(), getSound(), SoundCategory.RECORDS,1.0f, 1.0f);
         }
         this.loop = new SongLoopTask(this, player);
         if(duration > 0) {
@@ -36,9 +36,9 @@ public class RPMusic extends Music {
             this.loop.cancel();
         }
         try {
-            player.stopSound(Sound.valueOf(getSound()), SoundCategory.VOICE);
+            player.stopSound(Sound.valueOf(getSound()), SoundCategory.RECORDS);
         } catch (Exception exception) {
-            player.stopSound(getSound(), SoundCategory.VOICE);
+            player.stopSound(getSound(), SoundCategory.RECORDS);
         }
     }
 }
