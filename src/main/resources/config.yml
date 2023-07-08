@@ -1,21 +1,10 @@
-ignore-creative: true # Can creative player start fight music
-run-away-time: 15 # The time after the music cancel when they stop fighting
-disable-music: # entity that you don't want epic music. You don't need epic music for chicken !
-  - iron_golem
-
-mcjukebox:
-  fade: 3 # fading time in second when using mcjukebox
-  volume: 100 # Music volume (max 100)
-
-commands-after-fight: #Execute command after the fight. {player} for player name
-  - "jukebox sound {player} https://audio.jukehost.co.uk/O35LQERiX8eIDm1UsZ3h8LcTtgjGrftA"
+ignore-creative: false # Can creative player start fight music
+run-away-clock: 5 # The time after the music cancel when they stop fighting
 
 ignore-playervsplayer: false # Do you ignore player vs player
 
 music:
-  sound:
-    - mcjukebox:https://audio.jukehost.co.uk/h3alZYbHiw6Q1G9vWvMs2uaqJ1oLJn1R
-  zombie:
-    LouShunt:
+  entityType:
+    entityName:
       sound:
-        - mcjukebox:https://audio.jukehost.co.uk/hPtJYn6EPXREMhWwgZEHjjUF3apyEfXs
+      - music 0 # music -> is the music name and 0 -> duration

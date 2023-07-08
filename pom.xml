@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ca.loushunt</groupId>
-    <artifactId>BattleMusic</artifactId>
-    <version>3.1</version>
+    <groupId>com.DeanSF</groupId>
+    <artifactId>BossMusic</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>BattleMusic</name>
+    <name>BossMusic</name>
 
-    <description>Some epic custom music for your fight !</description>
+    <description>Fight against your epic creations with some boss music!</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>https://www.youtube.com/c/LouShunt</url>
+    <url>https://youtube.com/@DeanSF</url>
 
     <build>
         <plugins>
@@ -33,14 +33,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.bstats</pattern>
-                            <shadedPattern>ca.loushunt.battlemusic</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -49,7 +41,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\Louka\Documents\Minecraft\Server\spigot 1.18.2\plugins\BattleMusic-v${project.version}.jar</outputFile>
+                            <outputFile>${project.basedir}\plugins\BossMusic-v${project.version}.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -76,30 +68,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+           <groupId>org.spigotmc</groupId>
+           <artifactId>spigot-api</artifactId>
+           <version>1.20.1-R0.1-SNAPSHOT</version>
+           <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.mcjukebox</groupId>
-            <artifactId>plugin.bukkit.api</artifactId>
-            <scope>system</scope>
-            <version>2.6.8</version>
-            <systemPath>${basedir}\src\lib\MCJukebox.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.xxmicloxx</groupId>
-            <artifactId>NoteBlockAPI</artifactId>
-            <scope>system</scope>
-            <version>1.6.1</version>
-            <systemPath>${basedir}\src\lib\NoteBlockAPI-1.6.1-SNAPSHOT.jar</systemPath>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>20.1.0</version>
         </dependency>
     </dependencies>
 </project>

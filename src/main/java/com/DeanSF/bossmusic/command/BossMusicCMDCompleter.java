@@ -1,18 +1,19 @@
-package ca.loushunt.battlemusic.command;
+package com.DeanSF.bossmusic.command;
 
-import ca.loushunt.battlemusic.BattleMusic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import com.DeanSF.bossmusic.BossMusic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
-public class BattleMusicCMDCompleter implements TabCompleter {
+public class BossMusicCMDCompleter implements TabCompleter {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -57,7 +58,7 @@ public class BattleMusicCMDCompleter implements TabCompleter {
                             "mcjukebox:",
                             "noteblock:"));
                 else if(args[0].equalsIgnoreCase("remove")) {
-                    suggestion = BattleMusic.getBattleMusicInstance().getConfig().getStringList("music.sound");
+                    suggestion = BossMusic.getBossMusicInstance().getConfig().getStringList("music.sound");
                     suggestion.addAll(Arrays.asList("creeper",
                             "ender_dragon",
                             "enderman",
@@ -91,18 +92,35 @@ public class BattleMusicCMDCompleter implements TabCompleter {
                             "piglin"));
                 }
                 break;
-            case 4:
             case 3:
-                if(args[0].equalsIgnoreCase("add"))
-                    suggestion = new ArrayList<>(Arrays.asList("noteblock:","mcjukebox"));
-                else if(args[0].equalsIgnoreCase("remove")){
-                    if(args.length == 3)
-                        suggestion = BattleMusic.getBattleMusicInstance().getConfig().getStringList("music."+args[1]+".sound");
-                    else
-                        suggestion = BattleMusic.getBattleMusicInstance().getConfig().getStringList("music."+args[1].toLowerCase()+"."+args[2]+".sound");
+                if(args[0].equalsIgnoreCase("remove")){
+                    if(args.length == 3) {
+                        Set<String> customNameSet = BossMusic.getBossMusicInstance().getConfig().getConfigurationSection("music."+args[1]).getKeys(false);
+                        ArrayList<String> customNameList = new ArrayList<String>();
+                        for(String customName : customNameSet) {
+                            customNameList.add('"'+customName+'"');
+                        }
+                        suggestion = customNameList;
+                    }
+                } else if(args[0].equalsIgnoreCase("add")) {
+                    if(args.length == 3) {
+                        suggestion.add("\"a_name\"");
+                    }
                 }
                 break;
-
+            default:
+                if(args.length < 3) {
+                    break;
+                }
+                if(args[args.length-2].length()<=0 || args[args.length-3].length()<=0) {
+                    break;
+                }
+                if(args[args.length-2].charAt(args[args.length-2].length()-1) == '"') {
+                    suggestion.add("<Sound-Name>");
+                } else if(args[args.length-3].charAt(args[args.length-3].length()-1) == '"') {
+                    suggestion.add("<Duration>");
+                }
+                break;    
         }
 
         return suggestion;

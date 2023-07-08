@@ -1,14 +1,13 @@
-name: BattleMusic
+name: BossMusic
 version: '${project.version}'
-main: ca.loushunt.battlemusic.BattleMusic
-prefix: BattleMusic
-softdepend: [ MCJukebox, NoteBlockAPI ]
-author: LouShunt
-description: "Some epic custom music for your fight !"
-website: https://www.youtube.com/c/LouShunt
+main: com.DeanSF.bossmusic.BossMusic
+prefix: BossMusic
+author: DeanSF
+description: "Fight against your epic creations with some boss music!"
+website: https://youtube.com/@DeanSF
 commands:
-  battlemusic:
+  bossmusic:
     aliases: [bm]
-    description: "The main command of BattleMusic"
-    permission: "battlemusic.command"
+    description: "The main command of BossMusic"
+    permission: "bossmusic.command"
     usage: "§cUsage: /<command> <reload/version/add/remove/show>"

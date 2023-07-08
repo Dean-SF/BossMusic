@@ -1,14 +1,12 @@
-package ca.loushunt.battlemusic.music;
+package com.DeanSF.bossmusic.music;
 
-import ca.loushunt.battlemusic.BattleMusic;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-import java.io.IOException;
+import com.DeanSF.bossmusic.BossMusic;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,8 +14,6 @@ public abstract class Music {
 
     public enum MusicType{
         RESSOURCEPACK,
-        NOTEBLOCK,
-        MCJUKEBOX;
     }
 
     private static HashMap<String, ArrayList<Music>> musicList;
@@ -84,15 +80,15 @@ public abstract class Music {
         try{
             loadSubsectionSound("music");
         }catch(Exception ex){
-            Bukkit.getLogger().throwing("Music","loadMusicList",ex);
-            Bukkit.getLogger().warning("[BattleMusic] Could not load music from config.yml. Disabling BattleMusic...");
-            BattleMusic.getBattleMusicInstance().getPluginLoader().disablePlugin(BattleMusic.getBattleMusicInstance());
+            Bukkit.getLogger().warning("Music" + " loadMusicList " + ex.toString());
+            Bukkit.getLogger().warning("[BossMusic] Could not load music from config.yml. Disabling BossMusic...");
+            BossMusic.getBossMusicInstance().getPluginLoader().disablePlugin(BossMusic.getBossMusicInstance());
         }
     }
 
     private static void loadSubsectionSound(String path){
-        FileConfiguration config = BattleMusic.getBattleMusicInstance().getConfig();
-        for(String subsection: config.getConfigurationSection(path).getKeys(false)){
+        FileConfiguration config = BossMusic.getBossMusicInstance().getConfig();
+        for(String subsection : config.getConfigurationSection(path).getKeys(false)){
             if(subsection.equals("sound")){
                 ArrayList<Music> musics = new ArrayList<>();
                 for(String sound: config.getStringList(path+".sound"))
@@ -129,22 +125,10 @@ public abstract class Music {
      */
     public static Music getMusic(String sound){
 
-        if(sound.startsWith("mcjukebox:") && BattleMusic.hasJukebox()){
-            //MCJukebox music. Start with "mcjukebox:"
-            sound = sound.replace("mcjukebox:", "");
-
-            return new JukeBoxMusic(sound,
-                    BattleMusic.getBattleMusicInstance().getConfig().getInt("mcjukebox.volume"),
-                    BattleMusic.getBattleMusicInstance().getConfig().getInt("mcjukebox.fade"));
-        }else if(sound.startsWith("noteblock:") && BattleMusic.hasNoteBlockAPI()){
-            //Noteblock music. Start with "noteblock:"
-            sound = sound.replace("noteblock:","");
-            sound += sound.endsWith(".nbs")?"":".nbs";
-
-            return new NoteBlockMusic(sound, BattleMusic.getBattleMusicInstance().getDataFolder()+"");
-        }
+        // index 0 is music name, index 1 is duration
+        String[] musicAttributes = sound.split("\\s+");
 
         //RessourcePack Music
-        return new RPMusic(sound);
+        return new RPMusic(musicAttributes[0],Integer.parseInt(musicAttributes[1]));
     }
 }
